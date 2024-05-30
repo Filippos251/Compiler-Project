@@ -1,0 +1,96 @@
+Φτιαχνοντας αρχειο στο flex
+
+1) φτιάχνω ένα φάκελο με όλα τα αρχεία για τον μεταγλωτιστή μου
+  
+ α)lexer.h αρχείο (header αρχείο)
+   
+//Αντιστοιχίσεις των τόκενς(λεκτικές μονάδες) μέσα από τη γλώσσα
+
+//keywords
+#define T_CHAR   1
+#define T_INT    2
+#define T_MAIN   3 
+...
+
+//identifier
+#define T_ID     4
+
+//operators
+#define T_OROP   5
+#define T_ANDOP  6
+#define T_EQOP   7
+...
+
+//other tokens
+#define T_SEMI   8
+#define T_ASSIGN 9
+#define T_COMMA  10
+...
+
+//EOF
+#define T_EOF    0    // o lex θέλει πάντα το EOF να έχει τη τιμή 0 
+
+
+
+ β) Αρχέιο του λεκτικού αναλυτή lexer.l  // το πρόγραμμα flex διαβάζει ένα αρχειο.l
+
+Τρία τμήματα : 
+
+Τμήμα Δηλώσεων 
+%% 
+Τμήμα Κανόνων Λεκτικής Ανάλυσης
+%%
+Τμήμα Συναρτήσεων Χρήστη 
+
+ //Τι μπορώ να δηλώσω σε κάθε τμήμα ( σε κάθε τμήμα μπορώ να γράψω κώδικα C)
+
+Τμήμα Δηλώσεων:
+
+  Includes-libraries, defines, global variables, global functions, Declarations of functions, Ρυθμίσεις για το Flex (%option), Καταστάσεις(π.χ. INITIAL), συνώνυμα για RegEX, error counter
+  Για να γράψω κώδικα C 
+  %{ κώδικας C %}
+
+Τμήμα Κανόνων Λεκτικής Ανάλυσης:
+
+  Όλα τα RegEX //εντοπίζουν τις λεκτικές μονάδες 
+  RegEX {Κώδικας C}
+
+Τμήμα Συναρτήσεων Χρήστη 
+  
+ Δικές μας συναρτήσεις σε κώδικα C, π.χ. main, print, συναρτήσειςμ μετατροπής character σε int και float
+
+
+ΠΑΡΑΔΕΙΓΜΑ ΚΩΔΙΚΑ , γενική μορφή
+
+
+%{
+
+#include "lexer.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <math.h>
+#include <string.h>
+
+%}
+
+%option case-insensitive //for keywords int <=> INT
+%option yylineno //define a new type of int to count the lines, and the current line, just like PC
+%option noyywrap  //διαβάζω μόνο ένα αρχείο κάθε φορά, compile μόνο ένα αρχείο C κάθε φορά
+
+%%
+
+int main(int argc, char* argv[]){
+
+}
+
+
+KANONEΣ RegEX // Εύρεση μοτίβων σε String
+
+^ Αρχή Μοτίβου/Λέξης  π.χ. ^Τhe ψάχνω όλες τις λέξεις, μοτίβα που ξεκινάνε με τη λέξη The
+
+$ Τέλος Μοτίβου/Λέξης
+
+c{2} θέλω το c να εμφανίζεται 2 φορές 
+c{2,} θέλω το c να εμφανίζεται τουλάχιστον 2 φορές 
+
