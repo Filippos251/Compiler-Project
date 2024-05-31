@@ -1,0 +1,25 @@
+ΠΡΩΤΑ ΑΛΛΑΖΟΥΜΕ DIRECTORY ΣΕ ΑΥΤΗ ΠΟΥ ΠΕΡΙΕΧΟΝΤΑΙ ΟΛΑ ΜΑΣ ΤΑ ΑΡΧΕΙΑ
+
+$ cd /cygdrive/c/Users/USERNAME/YOUR/PATH
+
+/* Στην περίπτωση μου για παράδειγμα ο φάκελος με τα αρχεία βρίσκεται στη διαδρομή /cygdrive/c/Users/Σπύρος/Desktop/FlexBison */
+
+ΦΟΡΤΩΝΟΥΜΕ ΤΟ ΑΡΧΕΙΟ FLEX
+
+$ flex lexer.l
+
+ΦΟΡΤΩΝΟΥΜΕ ΤΟ ΑΡΧΕΙΟ BISON
+
+$ bison -d parser.y
+
+ΚΑΝΟΥΜΕ COMPILE ΣΤΟ DIRECTORY ΠΟΥ ΒΡΙΣΚΟΝΤΑΙ ΤΑ ΑΡΧΕΙΑ
+
+gcc lex.yy.c parser.tab.c -o parser -L/cygdrive/c/Users/USERNAME/YOUR/PATH -lfl
+
+/* Πάλι αντίχτοιχα /cygdrive/c/Users/Σπύρος/Desktop/FlexBison */
+ 
+ΠΑΡΕΧΟΥΜΕ ΤΟ ΑΡΧΕΙΟ ΜΕ ΤΙΣ ΕΙΣΑΓΟΜΕΝΕΣ ΕΝΤΟΛΕΣ ΣΤΟΝ parser
+
+./parser test.txt
+
+ΔΙΑΒΑΖΟΥΜΕ ΤΑ ΜΗΝΥΜΑΤΑ ΑΠΟ ΤΟ ERROR HANDLING
