@@ -8,7 +8,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "hashtbl.h"
-
+#include "flags.h"
 
 
 
@@ -21,7 +21,7 @@ extern char *yytext;  // The text of the current token
 /*HASHTABLE*/ 
 HASTBL *hashtbl;
 int scope = 0; //counter showing the current scope
-error_counter = 0;
+int error_counter = 0;
 void yyerror(const char *s);
 %}
 
