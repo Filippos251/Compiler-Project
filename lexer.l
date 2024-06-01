@@ -5,6 +5,7 @@
 /* STATEMENTS BLOCK */
 
 #include "hashtbl.h" 
+#include "flags.h" 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
