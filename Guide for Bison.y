@@ -270,3 +270,6 @@ SCOPES
 και όταν βγαίνω από αυτή (δηλ. }) κάνω scope--. Όταν κάνω scope-- (βγαίνω από ένα scope) θέλω να δείξω τι υπάρχει μέσα αε αυτό το scope, δηλαδή θέλω να ενημερώσω τον hash table με τα περιεχόμενα του τρέχον scope. Πώς; {hashtbl_get(hashtbl, scope); scope--;} //το scope-- το βάζω μετά, γιατί τα δεδομένα θέλω να τα πάρω από το scope μέσα στη συνάρτηση, πριν αλλάξει δηλ.
 Σε if(condition){ <scope++;} //δηλ. αυξάνω scope όταν ανοίγει το άγγιστρο
 
+ΣΗΜΑΝΤΙΚΟ ΓΙΑ ΕΡΩΤΗΜΑ 4
+In Bison, yyerrok is a macro used to recover from a syntax error and continue parsing. When a syntax error is encountered, Bison enters an error state and tries to recover by discarding tokens until it finds a point in the grammar where it can continue parsing. The yyerrok macro clears the error state, allowing the parser to proceed with the next input token.
+H yyparse() αν συνατήσει error σταματάει το parsing αυτόματα. Άρα αυτό που ζητείται στο ερώτημα 4 είναι η σωστή προσθήκη και χρήση της yyerrok.
