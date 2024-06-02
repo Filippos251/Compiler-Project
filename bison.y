@@ -164,21 +164,15 @@ member_declaration         : variable_declaration
                            ;
 
 
-variable_declaration       : PUBLIC data_type ID multi_variable_declaration
-{hashtbl_insert(hahstbl, $3 ,NULL, scope);}
-                           | {scope++;}PRIVATE data_type ID multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}           
-{hashtbl_insert(hahstbl, $3 ,NULL, scope);}
-                           | PUBLIC data_type ID ASSIGNOP expression multi_variable_declaration
-{hashtbl_insert(hahstbl, $3 ,NULL, scope);}
-                           | {scope++}PRIVATE data_type ID ASSIGNOP expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}    
-{hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+variable_declaration       : PUBLIC data_type ID multi_variable_declaration                                                                       {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | {scope++;}PRIVATE data_type ID multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}                     {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | PUBLIC data_type ID ASSIGNOP expression multi_variable_declaration                                                   {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | {scope++}PRIVATE data_type ID ASSIGNOP expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}  {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
                            ;
                            
                            
-multi_variable_declaration : COMMA ID multi_variable_declaration
-{hashtbl_insert(hahstbl, $2 ,NULL, scope);}
-                           | COMMA ID ASSIGNOP expression multi_variable_declaration
-{hashtbl_insert(hahstbl, $2 ,NULL, scope);}    
+multi_variable_declaration : COMMA ID multi_variable_declaration                                          {hashtbl_insert(hahstbl, $2 ,NULL, scope);}
+                           | COMMA ID ASSIGNOP expression multi_variable_declaration                      {hashtbl_insert(hahstbl, $2 ,NULL, scope);}    
                            | SEMIC
                            ;
                            
