@@ -1,11 +1,12 @@
 ΓΙΑ ΤΗΝ ΑΣΚΗΣΗ 2:
 Οι αλλαγές έγιναν στις γραμμές 167~182
 
-Πρόσθεσα αυτά στο variable_declaration για να επιτρέπεται η ανάθεση τιμών σε μεταβλητές
+Πρόσθεσα αυτά στο variable_declaration για να επιτρέπεται η ανάθεση τιμών σε μεταβλητές εν ώρα declaration
 
-                           | PUBLIC data_type ID ASSIGNOP expression multi_variable_declaration
-{hashtbl_insert(hahstbl, $3 ,NULL, scope);}
-                           | {scope++}PRIVATE data_type ID ASSIGNOP expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}    {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | PUBLIC data_type ID ASSIGNOP expression multi_variable_declaration                                                   {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | {scope++}PRIVATE data_type ID ASSIGNOP expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}  {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | PUBLIC data_type ID error expression multi_variable_declaration                                                      {yyerror("ERROR: Missing '='");}
+                           | {scope++}PRIVATE data_type ID error expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}     {yyerror("ERROR: Missing '='");}
                            ;
                            
 
@@ -16,21 +17,20 @@ double x, y;
 int x=15, y, z=13;
 
 
-multi_variable_declaration : COMMA ID multi_variable_declaration
-{hashtbl_insert(hahstbl, $2 ,NULL, scope);}
-                             | COMMA ID ASSIGNOP expression multi_variable_declaration
-{hashtbl_insert(hahstbl, $2 ,NULL, scope);}    
-                             | SEMIC
-                             ;
+multi_variable_declaration : COMMA ID multi_variable_declaration                                          {hashtbl_insert(hahstbl, $2 ,NULL, scope);}
+                           | COMMA ID ASSIGNOP expression multi_variable_declaration                      {hashtbl_insert(hahstbl, $2 ,NULL, scope);} 
+                           | COMMA ID error expression multi_variable_declaration                         {yyerror("ERROR: Missing '='");}  
+                           | SEMIC
+                           ;
                              
 Το variable_declaration τροποποιήθηκε αναλόγως για να καλεί το multi_variable_declaration
 
-variable_declaration       : PUBLIC data_type ID multi_variable_declaration
-{hashtbl_insert(hahstbl, $3 ,NULL, scope);}
-                           | {scope++;}PRIVATE data_type ID multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}           {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
-                           | PUBLIC data_type ID ASSIGNOP expression multi_variable_declaration
-{hashtbl_insert(hahstbl, $3 ,NULL, scope);}
-                           | {scope++}PRIVATE data_type ID ASSIGNOP expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}     {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+variable_declaration       : PUBLIC data_type ID multi_variable_declaration                                                                       {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | {scope++;}PRIVATE data_type ID multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}                     {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | PUBLIC data_type ID ASSIGNOP expression multi_variable_declaration                                                   {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | {scope++}PRIVATE data_type ID ASSIGNOP expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}  {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | PUBLIC data_type ID error expression multi_variable_declaration                                                      {yyerror("ERROR: Missing '='");}
+                           | {scope++}PRIVATE data_type ID error expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}     {yyerror("ERROR: Missing '='");}
                            ;
                            
                            
@@ -52,3 +52,4 @@ variable_declaration : PUBLIC data_type ID ASSIGNOP expression multi_variable_de
 για το: multi_variable_declaration : SEMIC
 
 και τελειώνει
+
