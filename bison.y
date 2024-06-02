@@ -168,11 +168,14 @@ variable_declaration       : PUBLIC data_type ID multi_variable_declaration     
                            | {scope++;}PRIVATE data_type ID multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}                     {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
                            | PUBLIC data_type ID ASSIGNOP expression multi_variable_declaration                                                   {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
                            | {scope++}PRIVATE data_type ID ASSIGNOP expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}  {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | PUBLIC data_type ID error expression multi_variable_declaration                                                      {yyerror("ERROR: Missing '='");}
+                           | {scope++}PRIVATE data_type ID error expression multi_variable_declaration {hashtbl_get(hashtbl, scope);scope--;}     {yyerror("ERROR: Missing '='");}
                            ;
                            
                            
 multi_variable_declaration : COMMA ID multi_variable_declaration                                          {hashtbl_insert(hahstbl, $2 ,NULL, scope);}
-                           | COMMA ID ASSIGNOP expression multi_variable_declaration                      {hashtbl_insert(hahstbl, $2 ,NULL, scope);}    
+                           | COMMA ID ASSIGNOP expression multi_variable_declaration                      {hashtbl_insert(hahstbl, $2 ,NULL, scope);} 
+                           | COMMA ID error expression multi_variable_declaration                         {yyerror("ERROR: Missing '='");}  
                            | SEMIC
                            ;
                            
