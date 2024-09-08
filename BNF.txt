@@ -1,0 +1,142 @@
+<program> ::= <class> | <class> <program>
+
+
+
+<class> ::= 'public class' [A-Z]<identifier> '{'<class_body>'}'     
+
+<class_body> ::= [<member_declarations>] | [<member_declarations> <class_body>]   
+
+<member_declarations> ::= <member_declaration> | <member_declaration> <member_declarations>
+
+<member_declaration> ::= <variable_declaration> | <method_declaration>
+
+
+
+<variable_declaration> ::= '['<modifier>']' <data_type> <identifier>';'
+
+<data_type> ::= 'int' | 'float' | 'double' | 'char' | 'boolean' | 'String' | 'void' 
+
+<modifier> ::= 'public' | 'private'
+
+<primitive_type> ::= 'int' | 'char' | 'double'| 'boolean'
+
+
+
+<identifier> ::= [A-Za-z]([A-Za-z0-9_])* - <reserved_words>
+
+<reserved_words> ::= 'int' | 'char' | 'double' | 'boolean' | 'String' | 'class' | 
+                    'new' | 'return' | 'void' | 'if' | 'else' | 'while' | 'do' | 'for' |
+                    'switch' | 'case' | 'default' | 'break' | 'true' | 'false' | 
+                    'public' | 'private'
+
+
+
+<int> ::= [0-9]+
+
+<char> ::= <character>
+
+<character> ::= <simple_character> | <special_character>
+
+<special_character> ::= '\n' | '\t' | '\\' | '\'
+
+<simple_character> ::= [a-zA-Z0-9]*
+
+<double>::= [0-9]+'.'[0-9]+'d'
+
+<boolean> ::= 'true' | 'false'
+
+<String> ::= '"' <char>* '"'
+
+<visible_character> ::= "!" | "#" | "$" | "%" | "&" | "'" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" |
+ "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | 
+ "[" | "]" | "^" | "_" | "`" | "{" | "|" | "}" | "~"
+
+
+
+
+
+
+
+<object_creation> ::= <class_name> <object_name> = 'new' <class_name>'('')'';'
+
+<class_name> ::= <identifier>
+
+<object_name> ::= <identifier>
+
+<class_member_name> ::= <identifier>
+
+
+<access> ::= <object_name> '.' <class_member_name>;
+
+
+
+<method-declaration> ::= <modifier> <return_type> <method_name> '('<parameters>')' '{'<method_body>'}'
+
+<return_type> ::= <data_type> | 'void'
+
+<method_name> ::= <identifier>
+
+<parameters> ::= '['<parameter-list>']'
+
+<parameter_list> ::= <parameter> | <parameter> ',' <parameter-list>
+
+<parameter> ::= <primitive_type> <identifier>
+
+<method_body> ::= <variable_declaration>* <statement>*
+  
+
+<expression> ::= <term> { ( '+' | '-' ) <term> }
+
+<term> ::= <factor> { ( '*' | '/' ) <factor> }
+
+<factor> ::= <variable> | <identifier> | '('<expression>')'
+
+<variable> ::= <identifier> | <identifier> '['<pointer_list>']'
+
+<pointer_list> ::= <expression> '{' ',' <expression> '}'
+
+
+
+
+<statement> ::= <assign> | <loop_statement> | <control_statement> | <print_statement> | <return_statement> | <break_statement>
+
+<assign> ::= <identifier> '=' <expression> ';'
+
+
+<loop_statement> ::= <do_while_loop> | <for_loop>
+
+<do_while_loop> ::= 'do' '{' <statement>* '}' 'while' '(' <condition> ')' ';'
+<for_loop> ::= 'for' '(' <assign> <condition> ';' <assign> ')' '{' <statement>* '}'
+
+
+<control_statement> ::= <if_statement> | <switch_statement>
+
+<if_statement> ::= 'if' '(' <condition> ')' '{' <statement>* '}' ('else if' '(' <condition> ')' '{' <statement>* '}' )* ['else' '{' <statement>* '}']
+
+<switch_statement> ::= 'switch' '(' <expression> ')' '{' <case_branch>* [ 'default' ':' <statement>* ] '}'
+<case_branch> ::= 'case' <expression> ':' <statement>*
+
+
+<print_statement> ::= 'out.print' '(' <String> [ ',' <identifier> ] ')' ';'
+
+<return_statement> ::= 'return' [ <expression> ] ';'
+
+<break_statement> ::= 'break' ';'
+
+
+
+
+<condition> ::= <expression> <comparison_operator> <expression> | <boolean> | <identifier>
+
+<comparison_operator> ::= '>' | '<' | '==' | '!=' | '&&' | '||'
+
+
+
+
+
+<comment> ::= <single> | <multiple>
+
+<single> ::= '//' <char>*
+
+<multiple> ::= '/*' <char>* '*/'
+

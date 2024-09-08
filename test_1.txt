@@ -1,0 +1,37 @@
+public class Object1 {
+    public void main(String args) {
+        
+		// this is a comment
+        /* this also is a comment 
+		
+		int a = 1;
+        int b = 3;
+        double x = 23.2d;
+        boolean y = false;
+        char type = 'A';
+        String name = "John";
+		
+		
+		if (a > 0) {
+            out.println("Positive");
+        }
+
+       
+        if (a == 0) {
+            out.println("Zero");
+        }
+
+      
+        if (a < 0) {
+            out.println("Negative");
+        }
+    
+	for (int s = 1; s <= 10; s++) {
+            out.println("Number: " + s);
+			
+	
+	
+	}
+	
+	
+}

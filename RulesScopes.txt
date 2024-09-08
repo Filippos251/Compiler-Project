@@ -1,0 +1,155 @@
+ 
+%%
+program                    : class
+                           | class program
+                           ;
+
+class                      : PUBLIC CLASS CLASS_ID LBRACE class_body RBRACE            {hashtbl_insert(hahstbl, $3 ,NULL, scope);}                                                    
+                           ;
+
+
+
+class_body                 : member_declaration
+                           | member_declaration class_body
+                           ;
+
+member_declaration         : variable_declaration
+                           | method_declaration
+                           ;
+
+variable_declaration       : PUBLIC data_type ID SEMIC   {hashtbl_insert(hahstbl, $3 ,NULL, scope);}                                                                          
+                           | {scope++;}PRIVATE data_type ID SEMIC  {hashtbl_get(hashtbl, scope);scope--;}  {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           ;
+
+
+
+method_declaration         : PUBLIC data_type ID LPAREN parameters RPAREN LBRACE method_body RBRACE   {hashtbl_insert(hahstbl, $3 ,NULL, scope);}
+                           | PRIVATE data_type ID LPAREN parameters RPAREN LBRACE {scope++;;} method_body {hashtbl_get(hashtbl, scope);scope--;} RBRACE  {hashtbl_insert(hahstbl, $3 ,NULL, scope);scope++;} {hashtbl_get(hashtbl, scope);scope--;}
+                           ;
+
+data_type                  : INT
+                           | DOUBLE
+                           | CHAR
+                           | BOOLEAN
+                           | STRING
+                           | VOID
+                           ;
+
+
+parameters                 : parameter_list
+                           ;
+
+parameter_list             : parameter
+                           | parameter COMMA parameter_list
+                           ;
+  
+parameter                  : primitive_type ID         {hashtbl_insert(hahstbl, $2 ,NULL, scope);}                                                                            
+                           ;
+
+primitive_type             : INT
+                           | CHAR
+                           | DOUBLE
+                           | BOOLEAN
+                           ;
+
+method_body                : variable_declaration method_body  
+                           | statement method_body
+                           | /* empty */
+                           ;
+
+statement                  : assign
+                           | loop_statement
+                           | control_statement
+                           | print_statement
+                           | return_statement
+                           | break_statement
+                           ;
+
+assign                     : ID ASSIGNOP expression SEMIC       {hashtbl_insert(hahstbl, $1 ,NULL, scope);}                                                                
+                           ;
+
+loop_statement             : do_while_loop
+                           | for_loop
+                           ;
+
+do_while_loop              : DO LBRACE{scope++;} statement{hashtbl_get(hashtbl, scope);scope--;} RBRACE WHILE LPAREN condition RPAREN SEMIC
+                           ;
+
+for_loop                   : FOR LPAREN assign condition SEMIC assign RPAREN LBRACE {scope++;} statement {hashtbl_get(hashtbl, scope);scope--;} RBRACE
+                           ;
+
+control_statement          : if_statement
+                           | switch_statement
+                           ;
+
+if_statement               : IF LPAREN condition RPAREN LBRACE {scope++;} statement {hashtbl_get(hashtbl, scope);scope--;} RBRACE else_if_statements
+                           ;
+
+else_if_statements         : ELSE IF LPAREN condition RPAREN LBRACE {scope++;}statement {hashtbl_get(hashtbl, scope);scope--;} RBRACE else_if_statements 
+                           | ELSE LBRACE {scope++;} statement {hashtbl_get(hashtbl, scope);scope--;} RBRACE
+                           | /* empty */ 
+                           ;
+
+switch_statement           : SWITCH LPAREN expression RPAREN LBRACE {scope++;} case_branch default_branch {hashtbl_get(hashtbl, scope);scope--;} RBRACE
+                           ;
+
+case_branch                : CASE expression COLON {scope++;} statement {hashtbl_get(hashtbl, scope);scope--;} case_branch 
+                           | /* empty */
+                           ;
+
+default_branch             : DEFAULT COLON {scope++;} statement {hashtbl_get(hashtbl, scope);scope--;}
+                           | /* empty */ 
+                           ;
+
+print_statement            : OUT DOT PRINT LPAREN STRING COMMA ID RPAREN SEMIC   {hashtbl_insert(hahstbl, $7 ,NULL, scope);}                                                    
+                           ;
+
+return_statement           : RETURN expression SEMIC
+                           ;
+
+break_statement            : BREAK SEMIC
+                           ;
+
+condition                  : expression comparison_operator expression
+                           | BOOLEAN
+                           | ID     {hashtbl_insert(hahstbl, $1 ,NULL, scope);}                                                                                                
+                           ;
+
+comparison_operator        : GTOP
+                           | LTOP
+                           | EQOP
+                           | NOTEQOP
+                           | ANDOP
+                           | OROP
+                           ;
+ 
+expression                 : expression ADDOP expression 
+                           | expression SUBOP expression
+                           | term
+                           ;
+
+term                       : term MULOP term
+                           | term DIVOP term
+                           | factor
+                           ;
+
+factor                     : ID    {hashtbl_insert(hahstbl, $1 ,NULL, scope);}                                                                                               
+                           | ICONST
+                           | DBLCONST
+                           | ID LBRACK {scope++;}pointer_list {hashtbl_get(hashtbl, scope);scope--;} RBRACK       {hashtbl_insert(hahstbl, $1 ,NULL, scope);}                       
+                           | LPAREN expression RPAREN
+                           ;
+
+pointer_list               : expression
+                           | expression COMMA pointer_list
+                           ;
+
+
+program                    : error SEMIC { yyerrok;}
+   
+
+
+%%
+
+
+

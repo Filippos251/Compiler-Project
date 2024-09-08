@@ -1,0 +1,27 @@
+public class A {
+    /* missing semicolon ; */
+    int x = 10
+    
+	double y = 21.5d;
+    
+    /* should be 'public void method1()', also missing semicolon */
+    method1() {
+        out.println("Hello")
+    }
+    
+    /* data type incorrect */
+    public void method2() {
+        int a = "string";
+    }
+
+    /* use of a reserved word */
+    public void method3() {
+        int return = 10; // 'return' is a reserved keyword
+    }
+    
+    /* missing closing brackets */
+    public class B {
+        public class C {
+            int m = 320;
+    }
+}
