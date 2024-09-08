@@ -2,14 +2,16 @@ public class Object1 {
     public void main(String args) {
         
 		// this is a comment
-        /* this also is a comment 
+        /* this also is a comment */
 		
-		int a = 1;
-        int b = 3;
-        double x = 23.2d;
-        boolean y = false;
-        char type = 'A';
-        String name = "John";
+	public int a = 1;
+        public int b = 3;
+        public double x = 23.2d;
+        public boolean y = false;
+        public char type = 'A';
+        public String name = "John";
+	private float a1, a2;
+	private int b1 = 10, b2 = 12, b3 = 14;
 		
 		
 		if (a > 0) {
@@ -27,11 +29,7 @@ public class Object1 {
         }
     
 	for (int s = 1; s <= 10; s++) {
-            out.println("Number: " + s);
-			
-	
-	
+            out.println("Number: " + s);	
 	}
-	
-	
+    }
 }
