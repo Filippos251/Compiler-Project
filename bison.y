@@ -162,6 +162,7 @@ member_declaration         : variable_declaration
 
 multi_variable_declaration : COMMA ID multi_variable_declaration                                                                                
                            | SEMIC
+                           ;
 
 multi_variable_assinment   : COMMA ID ASSIGNOP expression multi_variable_assinment                                                              
                            | SEMIC
