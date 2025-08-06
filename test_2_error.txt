@@ -1,27 +1,31 @@
-public class A {
-    /* missing semicolon ; */
-    int x = 10
-    
-	double y = 21.5d;
-    
-    /* should be 'public void method1()', also missing semicolon */
-    method1() {
-        out.println("Hello")
-    }
-    
-    /* data type incorrect */
-    public void method2() {
-        int a = "string";
+public class Sample {
+
+    public float rate;                   // 'float' is not a defined data type
+
+    private int 5count = 10;            // Variable name cannot start with a digit
+
+    public void compute() {
+        x == 5;                         // Misuse of '==' instead of '=' in assignment
+
+        if (x <> 10) {                  //  '<>' is not a valid comparison operator
+            out.prnt("Wrong call", x);  //  'prnt' is not 'print'; function not defined
+        } else
+            print("x is", x);           //  Direct call to print without 'out.' object
     }
 
-    /* use of a reserved word */
-    public void method3() {
-        int return = 10; // 'return' is a reserved keyword
+    public unknownType method() {       // 'unknownType' is not defined in grammar
+        return true;                    // return type is invalid
     }
-    
-    /* missing closing brackets */
-    public class B {
-        public class C {
-            int m = 320;
+
+    public void loopTest() {
+        for (i = 0; i < 10; i++)        // Missing body braces for for-loop
+            x = x + 1
+    }                                   // Missing semicolon after assignment
+
+    private double calc() {
+        int val = ;                     // Incomplete assignment
+        do {                            
+            val = val + 1              //  Missing semicolon
+        } while (val < 10              // Missing closing parenthesis and semicolon
     }
 }
