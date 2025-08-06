@@ -1,35 +1,23 @@
-public class Object1 {
-    public void main(String args) {
-        
-		// this is a comment
-        /* this also is a comment */
-		
-	public int a = 1;
-        public int b = 3;
-        public double x = 23.2d;
-        public boolean y = false;
-        public char type = 'A';
-        public String name = "John";
-	private float a1, a2;
-	private int b1 = 10, b2 = 12, b3 = 14;
-		
-		
-		if (a > 0) {
-            out.println("Positive");
-        }
-
-       
-        if (a == 0) {
-            out.println("Zero");
-        }
-
-      
-        if (a < 0) {
-            out.println("Negative");
-        }
+public class MainClass {
     
-	for (int s = 1; s <= 10; s++) {
-            out.println("Number: " + s);	
-	}
+    public int x, y;
+
+    private double z = 3.14, w = 2.71;
+
+    public int add(int a, int b) {
+        int result;
+        result = a + b;
+        return result;
+    }
+
+    public void loopExample() {
+        for (x = 0; x < 10; x = x + 1) {
+            y = x * 2;
+        }
+    }
+
+    public void printValues() {
+        out.print("Value of y is: ", y);
     }
 }
+
